@@ -18,9 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function(){
-    Route::post('login', 'Api\AuthController@login');
-    Route::post('register', 'Api\AuthController@register');
+    Route::get('unauthorized', ['as' => 'api.unauthorized', 'uses' => 'Api\AuthController@unauthorized']);
+
+    Route::post('login', ['as' => 'api.login', 'uses' => 'Api\AuthController@login']);
+    Route::post('register', ['as' => 'api.register', 'uses' => 'Api\AuthController@register']);
     Route::group(['middleware' => 'auth:api'], function(){
-        Route::post('getUser', 'Api\AuthController@getUser');
+        Route::get('getProfile', ['as' => 'api.profile', 'uses' => 'Api\AuthController@getProfile']);
     });
 });

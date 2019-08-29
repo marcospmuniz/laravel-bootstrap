@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Str;
 
 class Authenticate extends Middleware
 {
@@ -15,6 +16,13 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            
+            // quando o token de autenticação da API for inválido!
+            $path = $request->path();
+            if(Str::startsWith($path, 'api/')) {
+                abort(401, 'Invalid token!');
+            }
+
             return route('login');
         }
     }
