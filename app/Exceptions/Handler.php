@@ -27,13 +27,6 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    protected function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception)
-    {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Invalid token!'], 401);
-        }
-    }
-
     /**
      * Report or log an exception.
      *

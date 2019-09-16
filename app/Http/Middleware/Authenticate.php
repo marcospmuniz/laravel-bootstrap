@@ -16,12 +16,12 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            
+
             // quando o token de autenticação da API for inválido!
-            $path = $request->path();
-            if(Str::startsWith($path, 'api/')) {
-                abort(401, 'Invalid token!');
-            }
+            // $path = $request->path();
+            // if(Str::startsWith($path, 'api/')) {
+            //     abort(401, 'Invalid token!');
+            // }
 
             return route('login');
         }
